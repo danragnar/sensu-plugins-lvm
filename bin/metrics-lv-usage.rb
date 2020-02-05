@@ -51,22 +51,6 @@ class LvUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
          long: '--command COMMAND',
          description: 'Run this lvm command, e.g /bin/sudo /sbin/lvm'
 
-  # Get group data
-  #
-  def volume_groups
-    vgs = config.key?(:lvm_command) ? LVM::LVM.new(command: config[:lvm_command]).volume_groups : LVM::LVM.new.volume_groups
-    vgs.each do |line|
-      begin
-        next if config[:ignorevg]&.include?(line.name)
-        next if config[:ignorevgre]&.match(line.name)
-        next if config[:includevg] && !config[:includevg].include?(line.name)
-      rescue StandardError
-        unknown 'An error occured getting the LVM info'
-      end
-      volume_group_metrics(line)
-    end
-  end
-
   def logical_volumes
     @logical_volumes ||= config.key?(:lvm_command) ? LVM::LVM.new(command: config[:lvm_command]).logical_volumes.list : LVM::LVM.new.logical_volumes.list
   end
@@ -75,20 +59,10 @@ class LvUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
     unknown empty_volumes_msg if list.empty?
     begin
       return list.select { |l| config[:lv].include?(l.name) } if config[:lv]
-      return list.select { |l| config[:full_name].include?(l.full_name) } if config[:full_name]
     rescue StandardError
       unknown 'An error occured getting the LVM info'
     end
     list
-  end
-
-  def volume_group_metrics(line)
-    used_b = line.size - line.free
-    percent_b = ((used_b * 100) / line.size).round(2)
-
-    output [config[:scheme], line.name, 'used'].join('.'), used_b
-    output [config[:scheme], line.name, 'avail'].join('.'), line.free
-    output [config[:scheme], line.name, 'used_percentage'].join('.'), percent_b
   end
 
   def logical_volume_metrics(volume)
