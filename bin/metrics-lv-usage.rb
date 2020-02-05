@@ -73,7 +73,6 @@ class LvUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
     output [config[:scheme], volume.full_name, 'data', 'used_percentage'].join('.'), d_percent
     output [config[:scheme], volume.full_name, 'data', 'size'].join('.'), size
     output [config[:scheme], volume.full_name, 'metadata', 'used_percentage'].join('.'), m_percent
-
   end
 
   # Main function
@@ -84,4 +83,3 @@ class LvUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
     ok
   end
 end
-
