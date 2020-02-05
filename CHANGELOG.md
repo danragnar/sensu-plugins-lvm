@@ -9,6 +9,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 - Add sensu go bonsai asset (@danragnar)
 - Bump bundler to 2.1
 - Allow to specify the LVM command to run
+- Add metrics-lv-usage.rb (@mkobel)
 
 ### Changed
 - appeased the cops (@majormoses)

@@ -16,6 +16,10 @@ Checks the usage on the logical volume.  Checks both data and metadata volumes a
 
 Check volume group capacity based upon the gem chef-ruby-lvm.
 
+**metrics-lv-usage**
+
+Output graphite metrics for logical volume usage based upon the gem chef-ruby-lvm.
+
 **metrics-vg-usage**
 
 Output graphite metrics for volume group capacity and usage based upon the gem chef-ruby-lvm.
@@ -24,6 +28,7 @@ Output graphite metrics for volume group capacity and usage based upon the gem c
 ## Files
  * bin/check-lv-usage.rb
  * bin/check-vg-usage.rb
+ * bin/metrics-lv-usage.rb
  * bin/metrics-vg-usage.rb
 
 ## Installation
