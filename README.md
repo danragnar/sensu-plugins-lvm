@@ -25,6 +25,7 @@ Output graphite metrics for volume group capacity and usage based upon the gem c
  * bin/check-lv-usage.rb
  * bin/check-vg-usage.rb
  * bin/metrics-vg-usage.rb
+ * bin/check-snap-age.rb
 
 ## Installation
 
